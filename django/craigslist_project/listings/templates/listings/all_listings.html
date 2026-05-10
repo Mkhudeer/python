@@ -1,0 +1,80 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+
+<h1 class="mb-4">
+
+    Latest Listings
+
+</h1>
+
+<form method="GET" class="mb-4">
+
+    <input
+    type="text"
+    name="q"
+    placeholder="Search listings..."
+    class="form-control">
+
+</form>
+
+{% for listing in listings %}
+
+<div class="card mb-4 shadow">
+
+    <div class="card-body">
+
+        {% if listing.image %}
+
+            <img
+            src="{{ listing.image.url }}"
+            width="250"
+            class="rounded mb-3">
+
+        {% endif %}
+
+        <h3>
+
+            {{ listing.title }}
+
+        </h3>
+
+        <p>
+
+            {{ listing.description }}
+
+        </p>
+
+        <p class="text-muted">
+
+            Category:
+            {{ listing.category }}
+
+        </p>
+
+        <p class="text-muted">
+
+            Posted by:
+            {{ listing.created_by.username }}
+
+        </p>
+
+        <a
+        class="btn btn-dark"
+        href="{% url 'listing_detail' listing.id %}">
+
+            View Listing
+
+        </a>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>No listings found.</p>
+
+{% endfor %}
+
+{% endblock %}
